@@ -8,6 +8,7 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "backendpracktise": "file:",
     "express": "^5.1.0"
   },
   "repository": {

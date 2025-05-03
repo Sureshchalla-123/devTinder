@@ -4,20 +4,29 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/users", (req, res) => {
-  res.send("users get api");
+const middleware = (req, res, next) => {
+  const token = "1234567890";
+  const reqToken = "1234567890";
+  if (token === reqToken) {
+    console.log("authentication executed!!!");
+    next();
+  } else {
+    res.send("Not authenticated");
+  }
+};
+
+app.use("/auth", middleware);
+
+app.get("/auth/posts", (req, res) => {
+  res.send("fetched all posts");
 });
 
-app.post("/users", (req, res) => {
-  res.send("post reques of users");
+app.post("/user/signup", (req, res) => {
+  res.send("user added ");
 });
 
-app.put("/users", (req, res) => {
-  res.send("user updated");
-});
-
-app.delete("/users", (req, res) => {
-  res.send("user deleted ");
+app.post("/user/login", middleware, (req, res) => {
+  res.send("user loggedin");
 });
 
 app.listen(5000, () => {
