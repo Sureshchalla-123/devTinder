@@ -4,16 +4,20 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/", (req, res) => {
-  res.send("Home route");
+app.get("/users", (req, res) => {
+  res.send("users get api");
 });
 
-app.use("/test", (req, res) => {
-  res.send("Test route");
+app.post("/users", (req, res) => {
+  res.send("post reques of users");
 });
 
-app.use("/hello", (req, res) => {
-  res.send("Hello route");
+app.put("/users", (req, res) => {
+  res.send("user updated");
+});
+
+app.delete("/users", (req, res) => {
+  res.send("user deleted ");
 });
 
 app.listen(5000, () => {
