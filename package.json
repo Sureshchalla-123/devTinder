@@ -1,0 +1,23 @@
+{
+  "name": "backendpracktise",
+  "description": "\"# devTinder\"",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sureshchalla-123/devTinder.git"
+  },
+  "author": "suresh challa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sureshchalla-123/devTinder/issues"
+  },
+  "homepage": "https://github.com/Sureshchalla-123/devTinder#readme"
+}
