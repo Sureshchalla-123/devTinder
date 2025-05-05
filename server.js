@@ -9,7 +9,6 @@ app.use(express.json());
 app.post("/user/adduser", (req, res) => {
   try {
     const data = req.body;
-
     const user = new User(data);
     user.save();
   } catch (e) {
@@ -25,6 +24,16 @@ app.get("/users", async (req, res) => {
     res.send(data);
   } catch (error) {
     console.log("Error while fetching the users");
+  }
+});
+
+app.get("/user", async (req, res) => {
+  try {
+    const name = req.query.name;
+    const data = await User.findOne({ firstName: name });
+    res.send(data);
+  } catch (error) {
+    res.send("Error while getting search users");
   }
 });
 
