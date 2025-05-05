@@ -7,26 +7,59 @@ const app = express();
 app.use(express.json());
 
 app.post("/user/adduser", (req, res) => {
-  const data = {
-    firstName: "venkatrao",
-    lastName: "challa",
-    age: 30,
-    phone: 12345678,
-  };
-
   try {
+    const data = req.body;
+
     const user = new User(data);
     user.save();
   } catch (e) {
-    console.log("Eroor white saving in db");
+    console.log("Error while adding user");
   }
 
   res.send("User added");
 });
 
-app.get("/users", async () => {
-  const data = await User.find({});
-  res.send(data);
+app.get("/users", async (req, res) => {
+  try {
+    const data = await User.find({});
+    res.send(data);
+  } catch (error) {
+    console.log("Error while fetching the users");
+  }
+});
+
+app.patch("/user/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const user = await User.findByIdAndUpdate(id, data, {
+      returnDocument: "after",
+    });
+
+    if (!user) {
+      res.send("User not found");
+    }
+
+    user.save();
+    res.send("User updated");
+  } catch (error) {
+    res.send("Error while updating the user");
+  }
+});
+
+app.delete("/user/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findByIdAndDelete(id);
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    res.send("User deleted sucessfully");
+  } catch (error) {
+    res.status(500).send("Error while deleting user");
+  }
 });
 
 connectDb()
